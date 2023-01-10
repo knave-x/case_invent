@@ -3,16 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import apiService from "../service/apiService";
 
 const MovieCard = ({ movie }) => {
-  const [searchId, setSearchId] = useState("");
-  const searchMovieById = async () => {
-    const data = await apiService.getMovieById(searchId);
-    setSearchId(data.Search);
-    console.log("searchMovieById  :", data);
-  };
-  useEffect(() => {
-    searchMovieById();
-  }, []);
-
   const navigate = useNavigate();
   const clickHandler = () => {
     navigate(`/moviedetail/${movie.imdbID}`);

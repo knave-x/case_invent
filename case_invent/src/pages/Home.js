@@ -33,35 +33,29 @@ const Home = () => {
 
   return (
     <div className="app">
-      <h1> MovieLang </h1>
+      <h1> Case_Invent </h1>
       <div>
-        <label className="control-label" htmlFor="t">
-          Title:
-        </label>
+        <label htmlFor="t">Title:</label>
         <input
           type="text"
-          className="input-small"
           value={searchTerm}
           onChange={(e) => {
             setSeatchTerm(e.target.value);
           }}
         />
 
-        <label className="control-label" htmlFor="y">
-          Year:
-        </label>
+        <label htmlFor="y">Year:</label>
         <input
           type="text"
           id="y"
           name="y"
-          className="input-small"
           style={{ width: "100px" }}
           value={searchYears}
           onChange={(e) => {
             setSearchYears(e.target.value);
           }}
         />
-
+        <label>Type:</label>
         <select
           name="Type"
           style={{ width: "100px" }}
@@ -69,6 +63,9 @@ const Home = () => {
             setSearchType(e.target.value);
           }}
         >
+          <option value="" disabled selected hidden>
+            Select Type
+          </option>
           <option value="movie">Movie</option>
           <option value="series">Series</option>
           <option value="episode">Episode</option>
@@ -77,13 +74,12 @@ const Home = () => {
         <button
           id="search-by-title-button"
           type="button"
-          className="btn-sm btn-primary"
           onClick={() => searchMovies(searchTerm)}
         >
           Search
         </button>
       </div>
-      <div className="search">
+      {/* <div className="search">
         <input
           placeholder="Search for movies"
           value={searchTerm}
@@ -93,7 +89,7 @@ const Home = () => {
         ></input>
 
         <img src={SearchIcon} alt="search" onClick={() => searchMovies()}></img>
-      </div>
+      </div> */}
       {movies?.length > 0 ? (
         <div className="Container">
           {movies.map((movie, i) => (
