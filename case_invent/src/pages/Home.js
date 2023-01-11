@@ -4,6 +4,7 @@ import React from "react";
 import MovieCard from "../components/MoviesCard";
 import SearchIcon from "../search.svg";
 import apiService from "../service/apiService";
+import Pagination from "../components/Pagination";
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -12,6 +13,10 @@ const Home = () => {
   const [searchYears, setSearchYears] = useState("");
   const [searchType, setSearchType] = useState("");
 
+  const [totalMovies, setTotalMovies] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
+
   const searchMovies = async () => {
     // const response = await fetch(`${API_URL}&s=${title ? title : "Undefined"}`);
 
@@ -19,22 +24,24 @@ const Home = () => {
     const data = await apiService.getMoviesByFilter(
       searchTerm,
       searchYears,
-      searchType
+      searchType,
+      currentPage
     );
     setMovies(data.Search);
+    setTotalMovies(data.totalResults);
     console.log("data :", data);
   };
 
   useEffect(() => {
     searchMovies();
-  }, []);
+  }, [currentPage]);
 
-  const handleReset = () => {};
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="app">
       <h1> Case_Invent </h1>
-      <div>
+      <div className="searchBar">
         <label htmlFor="t">Title:</label>
         <input
           type="text"
@@ -75,6 +82,7 @@ const Home = () => {
           id="search-by-title-button"
           type="button"
           onClick={() => searchMovies(searchTerm)}
+          style={{ marginLeft: "10px" }}
         >
           Search
         </button>
@@ -101,10 +109,14 @@ const Home = () => {
           <h2>No movies found</h2>
         </div>
       )}
-      <div>
-        {/* <Routes>
-          <Route path="/moviedetail/:id" element={<MovieDetails />} />
-        </Routes> */}
+      <div className="pagination">
+        {movies?.length && (
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={totalMovies}
+            paginate={paginate}
+          />
+        )}
       </div>
     </div>
   );

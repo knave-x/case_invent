@@ -16,11 +16,11 @@ class Service extends HttpClient {
     return this.instance;
   }
 
-  getMoviesByFilter = (title, year, type) =>
+  getMoviesByFilter = (title, year, type, page = 1) =>
     this.instance.get(
       `&s=${title ? title : "Pokemon"}${year ? `&y=${year}` : ""}${
         type ? `&type=${type}` : ""
-      }`
+      }&page=${page}`
     );
   getMovieById = (id) => this.instance.get(`&i=${id ? id : ""}`);
 }

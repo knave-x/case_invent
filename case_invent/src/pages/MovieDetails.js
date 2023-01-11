@@ -5,48 +5,45 @@ import Table from "react-bootstrap/Table";
 
 const MovieDetails = () => {
   let { id } = useParams();
-  const [searchId, setSearchId] = useState("");
+  const [movie, setMovie] = useState(null);
+
   const searchMovieById = async () => {
     const data = await apiService.getMovieById(id);
-    setSearchId(data.Search);
+    setMovie(data);
+
     console.log("searchMovieById  :", data);
   };
   useEffect(() => {
     searchMovieById();
   }, []);
 
+  if (!movie) {
+    return <div>Loading</div>;
+  }
   return (
-    <div>
-      MovieDetails
-      <Table striped bordered hover size="sm">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td colSpan={2}>Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </Table>
+    <div className="movie">
+      <div>
+        <p>{movie.Year} </p>
+      </div>
+      <div>
+        {/* <img src={movie.Poster} alt={movie.Title}/> */}
+        <img
+          src={movie.Poster ? movie.Poster : `https://via.placeholder/400`}
+          alt={movie.Title}
+        />
+      </div>
+      <div>
+        <span>{movie.Type}</span>
+        <h3> {movie.Title}</h3>
+        <span>{movie.Year}</span>
+        <br></br>
+        <h5>-Actor : {movie.Actors}</h5>
+
+        <h5>-imdb Ratings : {movie.imdbRating}</h5>
+        <h5>-Director : {movie.Director}</h5>
+        <h5>-Time : {movie.Runtime}</h5>
+        <h5>-Genre : {movie.Genre}</h5>
+      </div>
     </div>
   );
 };

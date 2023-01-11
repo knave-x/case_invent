@@ -65,15 +65,8 @@ h1 {
   cursor: pointer;
 }
 
-label {
-  color: #f0f0f0  !important;
-}
-table{
-  color:#f0f0f0 !important;
-}
-tbody {
-  color:#f0f0f0 !important;
-}
+
+
 
 .empty {
   width: 100%;
@@ -99,6 +92,27 @@ tbody {
   align-items: center;
   flex-wrap: wrap;
 }
+label {
+  color: #f0f0f0  !important;
+  margin-right: 10px !important;
+  margin-left: 10px;
+}
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: rgb(255, 255, 255);
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+.pagination a.active {
+  background-color: #4CAF50 !important;
+  color: white !important;
+}
+
+.pagination a:hover:not(.active) {background-color: #4CAF50;}
 
 .movie {
   width: 310px;
